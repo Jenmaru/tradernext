@@ -1,7 +1,6 @@
 'use client';
 
 import { logout } from '@/lib/actions/auth';
-import { Example } from './dropdown';
 
 export default function Head({log}) {
   
@@ -14,7 +13,7 @@ export default function Head({log}) {
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
               </svg>
           </button>
-            <h1 className="ms-2 mt-1">{log.user.name}</h1></section> : "You are not logged in ASSHOLE"}</section>
+            <h1 className="ms-2 mt-1">{log.user.name}</h1></section> : "You are not logged"}</section>
         <section className="pe-4">{log?.user ? <button onClick={() => logout()}>Выход</button> : "" }</section>
       </div>
     </nav>
