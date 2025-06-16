@@ -19,6 +19,7 @@ function App({stats}) {
     await Promise.all(json);
     await axios.post('/api/data', { main: objectJson });
   }
+  
   useEffect(() => {
     const ind = [1, 2, 3];
     ind.map((el) => {

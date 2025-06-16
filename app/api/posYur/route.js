@@ -1,4 +1,4 @@
-const shortName = { name: 'CNYRUBFTOM' };
+const shortName = { main: 'CNYRUBFTOM' };
 
 export async function GET() {
   try {
@@ -8,4 +8,14 @@ export async function GET() {
   } catch (error) {
     return new Response('Ошибка при получении данных', { status: error.response?.status || 500 });
   }
+}
+
+export async function POST(request, response) {
+    try {
+        const data = await request.json();
+        shortName.main = data.main;
+        return Response.json(shortName);
+    } catch (error) {
+        return new Response('Ошибка при записи данных', { status: error.response?.status || 500 });
+    }
 }

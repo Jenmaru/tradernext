@@ -8,10 +8,12 @@ function Buttons({props, setStats}) {
   async function click(e) {
     const ind = [1, 2, 3];
     ind.map(async (el) => {
-      await props.map(async (el) => el[1] === e.id ? await axios.post('/api/getTicker', { main: `${el[0]}`}) : null);
+      await props.map(async (el) => {
+        el[1] === e.id ? await axios.post('/api/getTicker', { main: `${el[0]}`}) : null;
+        await axios.post('/api/posYur', { main: `${el[4]}`});
+      });
       await axios.get('/api/getTicker').then((res) => setStats({ data: res.data }));
     })
-    console.log(e.id);
   };
 
   return (
@@ -24,8 +26,7 @@ function Buttons({props, setStats}) {
         {props.map((el) => <button onClick={async (e) => await click(e.target)} 
           className="btn w-full text-start select-none cursor-pointer btn hover:bg-sky-200 ps-2 p-2 hover:text-sky-500 focus:bg-sky-100 focus:text-red-600" key={el[1]}>
             <section className="flex">
-              <section id={`${el[1]}`} className="w-40">{el[0]}</section>
-              <section id={`${el[1]}`} className="w-40">{el[1]}</section>
+              <section id={`${el[1]}`} className="w-40">{el[4]}</section>
             </section>
           </button>)}
     </div>

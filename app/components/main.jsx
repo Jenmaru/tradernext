@@ -14,7 +14,7 @@ export default function Main({props}) {
                 <Buttons props={props} setStats={setStats}/>
                 <Table stats={stats}/>
             </section>
-            <Sot />
+            <Sot props={stats} />
         </main>
     )
 } 

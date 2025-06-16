@@ -1,4 +1,5 @@
 const responsed = {};
+const parsed = {};
 
 export async function POST(req, res) {
 
@@ -14,10 +15,28 @@ export async function POST(req, res) {
 
   try {
     const url = await req.json();
-    const response = await fetch("https://apim.moex.com/iss/analyticalproducts/futoi/securities/cnyrubf.json?dates=2022-12-30", requestOptions)
+    const response = await fetch(`https://apim.moex.com/iss/analyticalproducts/futoi/securities/si.json?date=2022-03-01&latest=1`, requestOptions)
     const result = await response.text();
     responsed.text = result;
-    return Response.json(result);
+    const resp = JSON.parse(responsed.text).futoi.data.map((el) => el[5] === "YUR" ? parsed[el[2]] = el : null)
+    .flatMap((el) => {
+      if (el !== null) {
+        const key = {};
+        key[el[2]] = Math.abs(el[7] + el[8])
+        return key;
+      }
+    });
+    const uniq = resp.filter((el) => el !== undefined);
+    const forMax = uniq.flatMap((el) => Object.values(el));
+    const max = Math.max(...forMax);
+    const sot = uniq.map((el) => {
+      const mass = Object.entries(el);
+      const index = {};
+      index[mass[0][0]] = Math.round(100 * ( mass[0][1] / max ))
+      return index;
+    });
+    parsed.text = sot;
+    return Response.json(responsed);
   } catch (error) {
     return new Response('Ошибка при записи данных', { status: error.response?.status || 500 });
   }
@@ -25,7 +44,7 @@ export async function POST(req, res) {
 
 export async function GET() {
   try {
-  return Response.json(responsed);
+  return Response.json(parsed);
   } catch (error) {
 	return new Response('Ошибка при получении данных', { status: error.response?.status || 500 });
   }
