@@ -22,7 +22,7 @@ export default function Sot({ props }) {
     }, [props]);
 
     return (
-        <section className="flex w-full h-100 content items-center relative">
+        <section className="flex w-full h-100 content items-center relative grid grid-cols-1">
             <section className="flex w-full border border-solid bg-grey-300 border-gray-400 h-100 grid grid-cols-1 ml-6 z-0 absolute">
                 {grid.map((el, i) => {
                     if (i < 10) {
@@ -33,8 +33,12 @@ export default function Sot({ props }) {
             <section className="flex bg-grey-300 h-110 grid grid-cols-1 text-xs items-center text-end z-0 absolute">
                 {grid.map((el) => <section className="">{el}</section>)}
             </section>  
-            <section className="absolute z-1 bg-white-100 h-100 grid grid-flow-col ml-6 overflow-auto w-full content items-end">
-                {futoi.map((el) => <section className="bg-red-700 w-5 border" style={{ height: `${el}%` }}></section>)}
+            <section className="absolute z-1 bg-white-100 h-100 grid grid-flow-col ml-6 overflow-auto w-full">
+                {futoi.map((el) => {
+                    const place = el > 50 ? { rot: "rotate-180", merge: "mt-50", calc: el - 50, color: "bg-green-600" }
+                     : { rot: "rotate-0", merge: "mt-50", calc: el, color: "bg-red-600" };
+                    return <section className={`content w-2 h-100 ${place.rot}`}><section className={`${place.color} w-2 border ${place.merge}`} style={{ height: `${place.calc}%` }}></section></section>
+            })}
             </section>
         </section>
     )

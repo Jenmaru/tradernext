@@ -44,16 +44,11 @@ function App({stats}) {
       data={series}
       id={"chart1"}
       width={1454}
-      height={600}
+      height={400}
       decimal={2}
       scrollZoom={{
         enable: true,
         max: 20,
-      }}
-      rangeSelector={{
-        enable: true,
-        height: 150,
-        initialRange: { type: "month", value: 10 },
       }}
       ColorPalette={{
         background:"#f7fcfc",

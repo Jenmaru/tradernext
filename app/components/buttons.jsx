@@ -22,7 +22,7 @@ function Buttons({props, setStats}) {
       <section className="w-40 align-items-center pt-2">Тикер</section>
       <section className="w-40 align-items-center pt-2">ИД</section>
     </section>
-    <div className="border border-solid border-sky-300 w-80 h-140 overflow-auto" style={{background: "#f7fcfc"}}>
+    <div className="border border-solid border-sky-300 w-80 h-90 overflow-auto" style={{background: "#f7fcfc"}}>
         {props.map((el) => <button onClick={async (e) => await click(e.target)} 
           className="btn w-full text-start select-none cursor-pointer btn hover:bg-sky-200 ps-2 p-2 hover:text-sky-500 focus:bg-sky-100 focus:text-red-600" key={el[1]}>
             <section className="flex">
