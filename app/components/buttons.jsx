@@ -6,11 +6,12 @@ import axios from 'axios';
 function Buttons({props, setStats}) {
 
   async function click(e) {
+    console.log(props);
     const ind = [1, 2, 3];
     ind.map(async (el) => {
       await props.map(async (el) => {
         el[1] === e.id ? await axios.post('/api/getTicker', { main: `${el[0]}`}) : null;
-        await axios.post('/api/posYur', { main: `${el[4]}`});
+        await axios.post('/api/posYur', { main: `${el[1]}`});
       });
       await axios.get('/api/getTicker').then((res) => setStats({ data: res.data }));
     })

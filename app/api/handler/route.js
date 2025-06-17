@@ -15,8 +15,10 @@ export async function POST(req, res) {
 
   try {
     const url = await req.json();
-    const response = await fetch(`https://apim.moex.com/iss/analyticalproducts/futoi/securities/si.json?date=2022-03-01&latest=1`, requestOptions)
+    console.log(url.url);
+    const response = await fetch(`https://apim.moex.com/iss/analyticalproducts/futoi/securities/${url.url}.json?date=2022-03-01&latest=1`, requestOptions)
     const result = await response.text();
+    console.log(result);
     responsed.text = result;
     const resp = JSON.parse(responsed.text).futoi.data.map((el) => el[5] === "YUR" ? parsed[el[2]] = el : null)
     .flatMap((el) => {

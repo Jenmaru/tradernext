@@ -1,4 +1,4 @@
-const shortName = { main: 'CNYRUBFTOM' };
+const shortName = { main: 'CNYRUBF' };
 
 export async function GET() {
   try {

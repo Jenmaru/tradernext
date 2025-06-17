@@ -4,20 +4,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Sot({ props }) {
-    const [ futoi, setFutoi ] = useState([]);
+    const [ futoi, setFutoi ] = useState([0]);
     const grid = [ 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0 ];
-    console.log(futoi);
     
     useEffect(() => {
-        const ind = [0, 1];
-        ind.map((el) => {
-            axios.get('api/posYur').then((res) => {
-            axios.post('api/handler', { url: `${res.data.main}` })
-            axios.get('api/handler').then((response) => {
+        axios.get('api/posYur').then((res) => {
+            axios.post('api/handler', { url: `${res.data.main}` }).then(() => {
+                axios.get('api/handler').then((response) => {
                 const sf = response.data.text !== undefined ? response.data.text.reverse().map((el) => Object.values(el)[0]) : [0];
                 setFutoi(sf);
             })
-        });
+            })
         });
     }, [props]);
 
@@ -36,7 +33,7 @@ export default function Sot({ props }) {
             <section className="absolute z-1 bg-white-100 h-100 grid grid-flow-col ml-6 overflow-auto w-full">
                 {futoi.map((el) => {
                     const place = el > 50 ? { rot: "rotate-180", merge: "mt-50", calc: el - 50, color: "bg-green-600" }
-                     : { rot: "rotate-0", merge: "mt-50", calc: el, color: "bg-red-600" };
+                     : { rot: "rotate-0", merge: "mt-50", calc: 50 - el, color: "bg-red-600" };
                     return <section className={`content w-2 h-100 ${place.rot}`}><section className={`${place.color} w-2 border ${place.merge}`} style={{ height: `${place.calc}%` }}></section></section>
             })}
             </section>
